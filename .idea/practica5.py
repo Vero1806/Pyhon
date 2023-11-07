@@ -110,7 +110,7 @@ agenda = {'Pepe':['patinar', 'nadar', 'fiesta'],
           'Juan':['pizza', 'cine', 'tele']}
 
 
-#print(person['Pepe']) comprobación
+#print(agenda['Pepe']) comprobación
 
 persona = " "
 
