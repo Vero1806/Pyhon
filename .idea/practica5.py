@@ -122,11 +122,13 @@ while persona != "*":
     gusto = input("Dime que gusto quieres agregar ")
 
 
+    agenda.setdefault(persona,gusto)
 
     if persona in agenda:
         agenda[persona].append(gusto)
         print("Se ha agregado el gusto", gusto, "a", persona,".")
         print(agenda)
+
     else:
         print(persona, "no se encuentra en la agenda.")
         print(agenda)

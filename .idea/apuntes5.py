@@ -26,7 +26,7 @@ claves = a.keys() #claves del diccionario
 
 valores = a.values() #valores del diccionario
 
-a.setdefault ('ocho',8) #añade la clave y el valor en el dicionario
+a.setdefault ('ocho',8) #añade la clave y el valor en el dicionario si la clave ya existe no lo mete
 
 try:
     num = int(input("Ingrea un número: "))
