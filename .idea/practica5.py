@@ -106,42 +106,51 @@ Se deja de pedir personas cuando introducimos el carácter "*".
 '''
 
 
-agenda = {'Pepe':['patinar', 'nadar', 'fiesta'],
-          'Juan':['pizza', 'cine', 'tele']}
+agenda = {'Pepe': ['patinar', 'nadar', 'fiesta'],
+          'Juan': ['pizza', 'cine', 'tele']}
 
+# print(agenda['Pepe']) comprobación
 
-#print(agenda['Pepe']) comprobación
-
-persona = " "
+persona = ""
 
 while persona != "*":
 
     persona = input("Para que persona de la lista ")
 
+    if persona == "*":
+        break
 
     gusto = input("Dime que gusto quieres agregar ")
 
+    gustopersona = agenda.setdefault(persona, []) #variable lista que crea nombre y gusto y la introduce en agenda
 
-    agenda.setdefault(persona,gusto)
+    #print(type(gustopersona))
 
-    if persona in agenda:
-        agenda[persona].append(gusto)
-        print("Se ha agregado el gusto", gusto, "a", persona,".")
-        print(agenda)
+    if gusto in gustopersona:
+        print(persona, "ya tiene el gusto", gusto, "en su lista")
 
     else:
-        print(persona, "no se encuentra en la agenda.")
-        print(agenda)
+        gustopersona.append(gusto)
+        print("Se ha agregado el gusto", gusto, "a", persona)
+        print(gustopersona)
 
 
 print(agenda)
 
-
-
 '''
-Ejercicio5: Vamos a crear una lista de números y pedirle al usuario que ingrese un índice y nosotros mostraremos 
+Ejercicio5: Vamos a crear una lista de números y pedirle al usuario que ingrese un índice y nosotros mostraremos
 el valor del índice mostrado manejando las excepciones pertinentes
 '''
+
+lista = [1,2,3,4,5,6,7,8,9,10]
+
+try:
+    indice = int(input("dime la posicion del valor que quieras ver "))
+    print(lista[indice])
+except IndexError:
+    print("Error. La tabla es más pequeña que el número", indice)
+except ValueError:
+    print("Error: los indices de una lista no tienen decimales")
 
 
 '''
