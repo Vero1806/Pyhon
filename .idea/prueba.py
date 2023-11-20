@@ -1,36 +1,28 @@
 '''
-Ejercicio4: Supongamos un diccionario que contiene como clave el nombre de una persona y como valor una lista con todos sus "gustos". Hagamos un programa que agregue "gustos" a la persona:
-Si la persona no existe, la agrega al diccionario
-Si la persona existe y el gusto existe en su lista, no tiene ningún efecto.
-Si la persona existe y el gusto no existe en su lista, agrega el gusto a la lista.
-Se deja de pedir personas cuando introducimos el carácter "*".
+Ejercicio09
+Vamos a crear un registro de eventos con un diccionario donde se registre el código del evento
+y después la fecha y hora, el tipo de evento (que solo acepte los valores normal o crítico), y el nombre).
+Después, mostrar un pequeño menú que permita al usuario:
+ - Mostrar todos los eventos ordenados por fecha
+ - Mostrar todos los eventos críticos
+ - Buscar un evento: pedir el código por pantalla, imprimir toda la información y preguntarle
+ al usuario si quiere además imprimir todos los eventos de ese día
 '''
-
-agenda = {'Pepe':['patinar', 'nadar', 'fiesta'],
-          'Juan':['pizza', 'cine', 'tele']}
+eventos = {codigo: (fecha, hora, tipo, nombre)}
 
 
-#print(person['Pepe']) comprobación
-
-persona = " "
-
-while persona != "*":
-
-    persona = input("Para que persona de la lista ")
-
-
-    gusto = input("Dime que gusto quieres agregar ")
+codigo = cr1
+codigo = cr2
+print (eventos)
 
 
 
-    if persona in agenda:
-        agenda[persona].append(gusto)
-        print("Se ha agregado el gusto", gusto, "a", persona,".")
-        print(agenda)
-    else:
-        print(persona, "no se encuentra en la agenda.")
-        print(agenda)
 
 
-print(agenda)
 
+
+'''
+if tipo != "critico" or tipo != "normal":
+    print("valo introducido para tipo de evento no valido")
+    break
+'''
