@@ -84,8 +84,9 @@ codigo = {
 
 palabra = input("Introduce el codigo morse de una palabra separado por espacios. ")
 
-letras=palabra.split()
+letras=palabra.split() #combiente la cadena palabra en la lista letras separandolas por espacios
 
+#print(type(letras))
 #print(letras)
 cadena = " "
 
@@ -122,7 +123,7 @@ while persona != "*":
 
     gusto = input("Dime que gusto quieres agregar ")
 
-    gustopersona = agenda.setdefault(persona, []) #variable lista que crea nombre y gusto y la introduce en agenda
+    gustopersona = agenda.setdefault(persona, gusto) #variable lista que crea nombre y gusto y la introduce en agenda
 
     #print(type(gustopersona))
 
@@ -147,9 +148,9 @@ lista = [1,2,3,4,5,6,7,8,9,10]
 try:
     indice = int(input("dime la posicion del valor que quieras ver "))
     print(lista[indice])
-except IndexError:
-    print("Error. La tabla es más pequeña que el número", indice)
-except ValueError:
+except IndexError as e: #No usa catch. Mirar excepciones en chatgpt
+    print("Error. La lista es más pequeña que el número", indice)
+except ValueError as e:
     print("Error: los indices de una lista no tienen decimales")
 
 
@@ -157,10 +158,84 @@ except ValueError:
 Ejercicio6: Vamos a pedir al usuario que introduzca un número y vamos a intentar dividir 10 por el número introducido manejando 
 las distintas excepciones que se pueden producir
 '''
+try:
+    num = int(input("Dime el dividendo de la operación "))
+
+    result = 10 / num
+    print(result)
+except ZeroDivisionError as e:
+    print("no es posible dividir entre 0. E =", e)
+
+except ValueError as e:
+    print("No has introducido un número. E =", e)
 
 '''
-Ejercicio7: Vamos a crear un diccionario (pidiendo los valores por pantalla hasta introducir *) donde las claves son los nombres de los vinos y el valor una lista con la información sobre la denominación de origen, añada y precio. Después, hagamos un programa en que, dado el diccionario de vinos y una lista con un rango de precios [menorPrecio, mayorPrecio], nos devuelva una lista de los nombres, ordenados alfabéticamente de los vinos que estén en este rango de precios.
+Ejercicio7: Vamos a crear un diccionario (pidiendo los valores por pantalla hasta introducir *)
+donde las claves son los nombres de los vinos y el valor una lista con la información sobre la denominación de origen,
+añada y precio.
+Después, hagamos un programa en que, dado el diccionario de vinos y
+una lista con un rango de precios [menorPrecio, mayorPrecio], nos devuelva una lista de los nombres, ordenados
+alfabéticamente de los vinos que estén en este rango de precios.
 '''
+
+vinos =  {}
+lista = []
+#print(vinos)
+nombre=""
+origen=""
+añada=""
+precio=""
+
+print("Vamos a introducir los vinos en el diccionario. La ejecucion se parara cuando introduzcas *")
+try:
+    while True :
+        nombre = input("Introduce el nombre del vino ")
+        if nombre == "*":
+            break
+        origen = input("Introduce la denominación de origen ")
+        if origen == "*":
+            break
+        añadastring = input("Introduce el año de fabricación del vino ")
+        if añadastring == "*":
+            break
+        preciostring = input("Introduce el precio del vino.(Separa los decimales con .) ")
+        if preciostring == "*":
+            break
+
+        añada = int(añadastring)
+        precio = float(preciostring)
+
+        listadatos = [origen,añada,precio]
+
+        datos = vinos.setdefault(nombre, listadatos)
+
+        if nombre in vinos:
+            print("El vino ", nombre, "ya esta en la lista")
+
+        else:
+            listadatos.append(datos)
+            print("Se han agregado los datos", listadatos, "al vino", nombre)
+
+
+    print(vinos)
+
+except ValueError as e:
+    print("No has introducido un valor valido en la añada o en el precio. Error =", e)
+
+
+
+print("Ahora vamos a buscar los vinos en el rango de precios que prefieras")
+menorPrecio = float(input("Introduce la cantidad mínima que quieras gastarte.(Separa los decimales con .)"))
+mayorPrecio = float(input("Introduce la cantidad máxima que quieras gastarte.(Separa los decimales con .)"))
+
+
+for nombre, datos_lista in vinos.items():
+    for datos in datos_lista:
+        precio_vino = datos[2]
+        if menorPrecio <= precio_vino <= mayorPrecio:
+            nombres.append(nombre)
+
+print(nombres.sort)
 
 '''
 Ejercicio08: Vamos a crear un programa que lea por teclado las temperaturas mínimas de los 3 primeros meses del año de distintas ciudades, de la forma dic = {'Londres': [3.4, 6.3, 10.5], 'Oslo': [-3.8, -5.0, 4.2], 'Rennes': [2.5, 3.1, 12.3]} y una vez obtenido el carácter de salida * nos devuelva:
@@ -176,6 +251,37 @@ Vamos a crear un registro de eventos con un diccionario donde se registre el có
  - Mostrar todos los eventos críticos
  - Buscar un evento: pedir el código por pantalla, imprimir toda la información y preguntarle al usuario si quiere además imprimir todos los eventos de ese día 
 '''
+import datetime
+import time
+
+eventos = {"EV14.2": (datetime.datetime(2024,2,20), datetime.time(12,00), True, "Eleciones"),
+           "EV12.1": (datetime.datetime(2024,1,15), datetime.time(16,00), False, "Clase online"),
+           "EV16.3": (datetime.datetime(2024,3,16), datetime.time(20,00), False, "Reunión")}
+
+print(eventos)
+
+while True:
+    print("----------Menú----------")
+    print("1. Eventos ordenados por fechas")
+    print("2. Todos los eventos crítcos")
+    print("3. Buscar un evento por su códgo")
+    print("0 = Salir ")
+    eleccion = int(input(" "))
+
+    #if eleccion == 1:
+    # for clave, valor in eventos.items():
+
+
+    if eleccion == 2:
+        for clave, valor in eventos.items():
+            if valor[2] == False:  # La posición 2 de la tupla contiene el valor booleano
+                fecha, hora, es_critico, descripcion = valor
+                print("Códogo =",clave)
+                print("Fecha =", fecha.strftime('%Y-%m-%d'))
+                print("Hora =", hora.strftime('%H:%M'))
+                print("Es crítico =", valor[2])
+                print("Descripción =", descripcion)
+                print()
 
 '''
 Ejercicio10
