@@ -237,6 +237,37 @@ Ejercicio08: Vamos a crear un programa que lea por teclado las temperaturas mín
 - El valor mínimo de las temperaturas de cada ciudad
 - Una lista con la ciudad con la temperatura más baja y su valor
 '''
+ciudad_temperaturas = {}
+lista_temperaturas = []
+
+
+while True:
+    ciudad = input("Introduce la ciudad de las temperaturas que vamos a comparar ")
+    if ciudad == "*":
+        break
+    valor1 = float(input("Temperatura minima de enero "))
+    if valor1 == "*":
+        break
+    valor2 = float(input("Temperatura mínima de febrero "))
+    if valor2 == "*":
+        break
+    valor3 = float(input("Temperatura mínima de marzo "))
+    if valor3 == "*":
+        break
+
+    lista_temperaturas=[valor1,valor2,valor3]
+
+    datos = ciudad_temperaturas.setdefault(ciudad, lista_temperaturas)
+
+    if ciudad in ciudad_temperaturas:
+        print("La ciudad ", ciudad, "ya esta en el registro")
+
+    else:
+        lista_temperaturas.append(datos)
+        print("Se han agregado los datos de temperatura", lista_temperaturas, "a la ciudad", ciudad)
+
+
+print(temperaturas)
 
 '''
 Ejercicio09
@@ -262,16 +293,27 @@ while True:
     print("2. Todos los eventos crítcos")
     print("3. Buscar un evento por su códgo")
     print("0 = Salir ")
-    eleccion = int(input(" "))
+    eleccion = int(input(""))
 
-    #if eleccion == 1:
-    # for clave, valor in eventos.items():
+    if eleccion == 1:
+        # eventos_ordenados = {clave: eventos[clave] for clave in sorted(eventos)} #ordena eventos por clave
+        eventos_ordenados = {clave: fecha for clave, fecha in sorted(eventos.items(), key=lambda item: item[1][0])}
+        # formula que cambia la primera sentencia para que el valor de ordenación sea la fecha
+        for clave, valor in eventos_ordenados.items():
+            fecha, hora, es_critico, descripcion = valor
+            print("Códogo =",clave)
+            print("Fecha =", fecha.strftime('%Y-%m-%d'))
+            print("Hora =", hora.strftime('%H:%M'))
+            print("Es crítico =", valor[2])
+            print("Descripción =", descripcion)
+            print()
 
 
     if eleccion == 2:
-        for clave, valor in eventos.items():
-            if valor[2] == False:  # La posición 2 de la tupla contiene el valor booleano
+        for clave, valor in eventos.items(): #recorre el diccionario con clave y valor
+            if valor[2] == True:  # La posición 2 de la tupla contiene el valor booleano
                 fecha, hora, es_critico, descripcion = valor
+                #asignamos lo que esta dentro de diccionario a valor para recorrerlo e imprimirlo
                 print("Códogo =",clave)
                 print("Fecha =", fecha.strftime('%Y-%m-%d'))
                 print("Hora =", hora.strftime('%H:%M'))
@@ -279,7 +321,29 @@ while True:
                 print("Descripción =", descripcion)
                 print()
 
+    if eleccion == 3:
+        cod = input("Introduce el código del evento que quieras ver")
+        if cod in eventos.keys():
+            fecha, hora, es_critico, descripcion = eventos[cod]
+            print("Códogo =",cod)
+            print("Fecha =", fecha.strftime('%Y-%m-%d'))
+            print("Hora =", hora.strftime('%H:%M'))
+            print("Es crítico =", es_critico)
+            print("Descripción =", descripcion)
+            print()
+        else:
+            print("El código", cod, "no existe")
+
+    if eleccion == 0:
+        print("Fin del programa")
+        break
 '''
 Ejercicio10
 Pon un ejemplo para el que veas útil el empleo de diccionarios.
 '''
+
+#La mayoria de estos ejercicios se pueden hacer en MySQL que están preparado para trabajar con primary key y campos asociados dentro de la tabla.
+#Por lo que he ido aprendiendo en la resolución de estos ejercicios los diccionarios son útiles cuando tienes una clave y un valor como en el código morse
+#Ya que diferencia bien la clave del valor y se puede jugar con eso para buscar información recorriendo con bucles for
+#Cuando mezclas diccionarios con duplas o listas es más facil y más organico trabajar en base de datos.
+# Pero vamos que esta es la opinión de alguien que no sabe, así que espero que esto se quede solo en un comentario
