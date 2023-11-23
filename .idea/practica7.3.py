@@ -72,12 +72,12 @@ def SimplificarFracion (n1,n2):
 # denominador es 1 sólo muestra el numerador.
 # Parámetros de entrada: numerador y denominador
 
-def EscribirFracion(numerador, denominador):
+def EscribirFraccion(numerador, denominador):
 
     if denominador == 1:
-        return print(numerador)
+        return print(int(numerador))
     else:
-        return print(numerador,"/",denominador)
+        return print(int(numerador),"/",int(denominador))
 
 
 #print(EscribirFracion(15,1)) #Esta es la función de presentación para el menú
@@ -157,3 +157,27 @@ def DividirFracciones (numerador1, denominador1, numerador2, denominador2):
 # operar con fracciones.
 
 #meter en el menú un try excepcion para ZeroDivisionError
+
+while True:
+    print("-------Menú de Calculadora de Fracciones--------")
+    print("Qué operacion quieres realizar")
+    print("1. Sumar fracciones")
+    print("2. Restar fracciones")
+    print("3. Multiplicar fracciones")
+    print("4. Dividir fracciones")
+    print("0. Salir")
+    eleccion = int(input(" "))
+
+    if eleccion == 0:
+        print("Hasta la próxima.")
+        break
+
+    if eleccion == 1:
+        print("Fracción 1 de la suma")
+        n1, d1 = LeerFracion()
+        print("Fracción 2 de la suma")
+        n2, d2 = LeerFracion()
+        nn , dd = SumarFracciones(n1,d1,n2,d2)
+        EscribirFraccion(nn,dd)
+
+    #print(SumarFracciones(13,20,3,4)) #Resultado antes de simplificar 112/80 después 7/5
