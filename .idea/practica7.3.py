@@ -76,13 +76,11 @@ def EscribirFracion(numerador, denominador):
 
     if denominador == 1:
         return print(numerador)
-    if denominador == 0:
-        return print("Error el denominador de una fracción no puede ser 0")
     else:
         return print(numerador,"/",denominador)
 
 
-#print(EscribirFracion(39,150))
+#print(EscribirFracion(15,1)) #Esta es la función de presentación para el menú
 
 
 # Función SumarFracciones: Recibe dos fracciones (numerador y denominador)
@@ -93,6 +91,15 @@ def EscribirFracion(numerador, denominador):
 # Parámetros de entrada: numerador1 y denominador1, numerador2 y denominador2
 # Datos devueltos: numerador y denominador de la fracción resultado
 
+def SumarFracciones (numerador1, denominador1, numerador2, denominador2):
+    newnumerador = (numerador1*denominador2)+(denominador1*numerador2)
+    newdenominador = denominador1*denominador2
+    resulnumerador,resuldenominador = SimplificarFracion(newnumerador,newdenominador)
+
+    return resulnumerador,resuldenominador
+
+#print(SumarFracciones(13,20,3,4)) #Resultado antes de simplificar 112/80 después 7/5
+#print(SumarFracciones(3,4,5,7)) #Resultado 41/28
 
 # Función RestarFracciones: Recibe dos fracciones (numerador y denominador)
 #  y devuelve otra fracción que es la resta de la primera y la segunda.
@@ -101,17 +108,32 @@ def EscribirFracion(numerador, denominador):
 # Este Función usa SimplificarFraccion para simplificar la fracción calculada.
 # Parámetros de entrada: numerador1 y denominador1, numerador2 y denominador2
 # Datos devueltos: numerador y denominador de la fracción resultado
+def RestarFracciones (numerador1, denominador1, numerador2, denominador2):
+    newnumerador = (numerador1*denominador2)-(denominador1*numerador2)
+    newdenominador = denominador1*denominador2
+    resulnumerador,resuldenominador = SimplificarFracion(newnumerador,newdenominador)
 
+    return resulnumerador,resuldenominador
+
+#print(RestarFracciones(5,6,2,3)) #resultado 1/6
 
 
 # Función MultiplicarFracciones: Recibe dos fracciones (numerador y denominador)
 #  y devuelve otra fracción que es el producto de la primera y la segunda.
-# La resta de dos fracciones es otra fracción cuyo `numerador=n1*n2`
+# La multiplicación de dos fracciones es otra fracción cuyo `numerador=n1*n2`
 # y `denominador=d1*d2`
 # Este Función usa SimplificarFraccion para simplificar la fracción calculada.
 # Parámetros de entrada: numerador1 y denominador1, numerador2 y denominador2
 # Datos devueltos: numerador y denominador de la fracción resultado
 
+def MiltiplicarFracciones (numerador1, denominador1, numerador2, denominador2):
+    newnumerador = numerador1*numerador2
+    newdenominador = denominador1*denominador2
+    resulnumerador,resuldenominador = SimplificarFracion(newnumerador,newdenominador)
+
+    return resulnumerador,resuldenominador
+
+#print(MiltiplicarFracciones(10,9,6,15)) #resultado 4/9
 
 
 # Función DividirFracciones: Recibe dos fracciones (numerador y denominador)
@@ -122,8 +144,16 @@ def EscribirFracion(numerador, denominador):
 # Parámetros de entrada: numerador1 y denominador1, numerador2 y denominador2
 # Datos devueltos: numerador y denominador de la fracción resultado
 
+def DividirFracciones (numerador1, denominador1, numerador2, denominador2):
+    newnumerador = numerador1*denominador2
+    newdenominador = denominador1*numerador2
+    resulnumerador,resuldenominador = SimplificarFracion(newnumerador,newdenominador)
 
+    return resulnumerador,resuldenominador
+
+#print(DividirFracciones(2,3,5,6)) #resultado 4/5
 
 # Crear un programa que utilizando las funciones anteriores muestre un menú para
 # operar con fracciones.
 
+#meter en el menú un try excepcion para ZeroDivisionError
