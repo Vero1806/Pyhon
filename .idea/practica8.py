@@ -4,7 +4,7 @@
 # las funciones principales para familiarizarnos con ellos
 
 # import collections
-    #Es un módulo que mejoras las funciones de las tuplas y listas sumando más funcionalidades. Por ejemplo:
+    # Es un módulo que mejoras las funciones de las tuplas y listas sumando más funcionalidades. Por ejemplo:
         #.appendleft() // agrega un valor a la derecha en una lista
         #.popleft() // borra un valor a la derecha de la lista
         #.Counter() // cuenta la cantidad de elementos dentro de una lista
@@ -12,6 +12,34 @@
         #.OrderedDict() // mantiene el orden de la inserción de las claves en los diccionarios.
 
 #import requests
+    # Permite envias solicitudes HTTP
+        #.delete(url, args) // Envia una solicitud de eliminar al url con los parametros mandados por argumentos
+        #.get(url, params, args) // Envia una solicitud de get al url
+        #.head(url,args) //  Envia una solicitud de HEAD al url
+        #patch(url, data, args) // Envia una solicitud de PATCH al url
+        #post(url, data, json, args) //Envia una solicitud de PATCH al url
+
+#import cmath
+    # Permite operaciones más complejas que el math normal como senos, cosenos y números irraccionales
+        #cmath.e // devuelve el número e
+        #cmath.pi // devuelve el número pi
+        #cmath.inf // devuelve infinito
+        #cmath.acos(x) // devuelve el arco del coseno
+        #cmath.asin(x) // devuelve el arco del seno
+
+#import pandas
+    # Permite trabajar con conjuntos de datos.
+        #pandas_read // lee archivos
+        #log // devuelve una fila especifica mandada por atributo
+        #index // crea un indice para tuplas o listas antes nombradas
+
+#import Numpy
+    # Permite trabajar con matrices y matrices multidimensionales
+        #
+#https://pythondiario.com/2019/05/numpy-en-python.html
+
+
+
 
 #2 Calculadora de fracciones
 #Usando el módulo Fractions, crea un programa que permita hacer
