@@ -17,9 +17,9 @@ def Convertir_A_Segundos (horas,minutos,segundos):
 # Valores de salida: hora,minutos y segundos
 
 def Covertir_a_HMS (segundos2):
-    horas2 = round(segundos2/3600)
-    minutos2 = round((segundos2%3600)/60)
-    segundos_finales = minutos2%60
+    horas2 = int(segundos2/3600)
+    minutos2 = int((segundos2%3600)/60)
+    segundos_finales = int(((segundos2%3600)/60)%60)
     return (horas2,minutos2,segundos_finales)
 
 
@@ -40,7 +40,7 @@ while True:
 
         segund = Convertir_A_Segundos(h1,m1,s1)
 
-        print(h1, "horas,", m1, "minutos y", s1, "son igual a ", segund,"segundos en total ")
+        print(h1, "horas,", m1, "minutos y", s1, "son igual a", segund,"segundos en total ")
 
     if opcion == 2:
         s2 = int(input("Dime los segundos totales para pasarlos a horas, minutos y segundos "))

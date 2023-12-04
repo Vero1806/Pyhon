@@ -20,19 +20,18 @@ def Intercambiar (n1,n2):
 # Dato devuelto: El MCD
 
 def CalcularMCD (num1, num2):
-   n1, n2 = Intercambiar(num1,num2)
-   resto = n1%n2
+    n1, n2 = Intercambiar(num1,num2)
+    resto = n1%n2
 
-   if resto == 0:
-       return n2
+    if resto == 0:
+        return n2
 
-   if resto != 0:
-
-    while resto != 0:
-        n1 = n2 #Divisor para a ser dividendo
-        n2 = resto #Resto pasa a ser divisor
-        resto = n1 % n2 #repetimos operación
-    return n2 #Para cuando resto = 0 el divisor que tengamos en ese momento sera MCD
+    if resto != 0:
+        while resto != 0:
+            n1 = n2 #Divisor para a ser dividendo
+            n2 = resto #Resto pasa a ser divisor
+            resto = n1 % n2 #repetimos operación
+        return n2 #Para cuando resto = 0 el divisor que tengamos en ese momento sera MCD
 
 
 # print(CalcularMCD(39,150)) #Prueba
@@ -44,10 +43,10 @@ def CalcularMCD (num1, num2):
 # Datos devueltos: numerador y denominador
 
 def LeerFracion():
-  num1 = int(input("Introduce el numerador de la fracción. Debe ser un número entero "))
-  num2 = int(input("Introduce el denominador de la fracción. Debe ser un número entero "))
-  n1, n2 = SimplificarFracion(num1,num2)
-  return n1,n2
+    num1 = int(input("Introduce el numerador de la fracción. Debe ser un número entero "))
+    num2 = int(input("Introduce el denominador de la fracción. Debe ser un número entero "))
+    return SimplificarFracion(num1,num2)
+
 
 
 # Función SimplificarFracion: Recibe una fracción (numerador y denominador)
@@ -57,8 +56,8 @@ def LeerFracion():
 # Datos devueltos: numerador y denominador
 
 def SimplificarFracion (n1,n2):
-    mcd = CalcularMCD(n1,n2)
-    num1 = n1/mcd
+    mcd = CalcularMCD(abs(n1),abs(n2)) #Manda los valores absolutos a la función de minimo como un múltiplo
+    num1 = n1/mcd #Los signos permanecen ahora aquí
     num2 = n2/mcd
     return num1,num2
 
@@ -108,12 +107,12 @@ def SumarFracciones (numerador1, denominador1, numerador2, denominador2):
 # Este Función usa SimplificarFraccion para simplificar la fracción calculada.
 # Parámetros de entrada: numerador1 y denominador1, numerador2 y denominador2
 # Datos devueltos: numerador y denominador de la fracción resultado
-def RestarFracciones (numerador1, denominador1, numerador2, denominador2):
-    newnumerador = (numerador1*denominador2)-(denominador1*numerador2)
-    newdenominador = denominador1*denominador2
-    resulnumerador,resuldenominador = SimplificarFracion(newnumerador,newdenominador)
+def RestarFracciones(numerador1, denominador1, numerador2, denominador2):
+    newnumerador = (numerador1 * denominador2) - (denominador1 * numerador2)
+    newdenominador = denominador1 * denominador2
+    resulnumerador, resuldenominador = SimplificarFracion(newnumerador, newdenominador)
 
-    return resulnumerador,resuldenominador
+    return resulnumerador, resuldenominador
 
 #print(RestarFracciones(5,6,2,3)) #resultado 1/6
 
@@ -156,7 +155,7 @@ def DividirFracciones (numerador1, denominador1, numerador2, denominador2):
 # Crear un programa que utilizando las funciones anteriores muestre un menú para
 # operar con fracciones.
 
-#meter en el menú un try excepcion para ZeroDivisionError
+
 
 while True:
     print("-------Menú de Calculadora de Fracciones--------")
@@ -168,16 +167,63 @@ while True:
     print("0. Salir")
     eleccion = int(input(" "))
 
-    if eleccion == 0:
-        print("Hasta la próxima.")
-        break
+    try:
+        if eleccion == 0:
+            print("Hasta la próxima.")
+            exit(1)
 
-    if eleccion == 1:
-        print("Fracción 1 de la suma")
-        n1, d1 = LeerFracion()
-        print("Fracción 2 de la suma")
-        n2, d2 = LeerFracion()
-        nn , dd = SumarFracciones(n1,d1,n2,d2)
-        EscribirFraccion(nn,dd)
+        if eleccion == 1:
+            print("Fracción 1 de la suma")
+            n1, d1 = LeerFracion()
+            print("Fracción 2 de la suma")
+            n2, d2 = LeerFracion()
+            nn , dd = SumarFracciones(n1,d1,n2,d2)
+            EscribirFraccion(nn,dd)
 
-    #print(SumarFracciones(13,20,3,4)) #Resultado antes de simplificar 112/80 después 7/5
+        #print(SumarFracciones(13,20,3,4)) #Resultado antes de simplificar 112/80 después 7/5
+
+        if eleccion == 2:
+            print("Fracción 1 de la restar")
+            n1, d1 = LeerFracion()
+            print("Fracción 2 de la restar")
+            n2, d2 = LeerFracion()
+            nn , dd = RestarFracciones(n1,d1,n2,d2)
+            EscribirFraccion(nn,dd)
+
+        if eleccion == 3:
+            print("Fracción 1 de la multiplicación")
+            n1, d1 = LeerFracion()
+            print("Fracción 2 de la multiplicación")
+            n2, d2 = LeerFracion()
+            nn , dd = MiltiplicarFracciones(n1,d1,n2,d2)
+            EscribirFraccion(nn,dd)
+
+        if eleccion == 4:
+            print("Fracción 1 de la división")
+            n1, d1 = LeerFracion()
+            print("Fracción 2 de la división")
+            n2, d2 = LeerFracion()
+            nn , dd = DividirFracciones(n1,d1,n2,d2)
+            EscribirFraccion(nn,dd)
+
+        else:
+            print("Error. Esa opción no es valida")
+
+
+    except ZeroDivisionError as e:
+        print("Estas intentado dividir por 0. Error:", e)
+        continue
+    except ValueError as e:
+        print("El valor introducido no es correcto. Error =", e)
+        continue
+
+    while True:
+        continuar = input("¿Desea continuar operado? Si o No ")
+        continuarMayus = continuar.upper()
+        if continuarMayus == "SI":
+            break
+        if continuarMayus == "NO":
+            print("Hasta la próxima")
+            exit(1)
+        else:
+            print("El valor intrudido no es correcto. Responda Si o No")
