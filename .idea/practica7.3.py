@@ -26,7 +26,11 @@ def CalcularMCD (num1, num2):
     if resto == 0:
         return n2
 
+<<<<<<< Updated upstream
     if resto != 0:
+=======
+   if resto != 0:
+>>>>>>> Stashed changes
         while resto != 0:
             n1 = n2 #Divisor para a ser dividendo
             n2 = resto #Resto pasa a ser divisor
@@ -43,9 +47,15 @@ def CalcularMCD (num1, num2):
 # Datos devueltos: numerador y denominador
 
 def LeerFracion():
+<<<<<<< Updated upstream
     num1 = int(input("Introduce el numerador de la fracción. Debe ser un número entero "))
     num2 = int(input("Introduce el denominador de la fracción. Debe ser un número entero "))
     return SimplificarFracion(num1,num2)
+=======
+  num1 = int(input("Introduce el numerador de la fracción. Debe ser un número entero "))
+  num2 = int(input("Introduce el denominador de la fracción. Debe ser un número entero "))
+  return SimplificarFracion(num1,num2)
+>>>>>>> Stashed changes
 
 
 
@@ -180,7 +190,11 @@ while True:
             nn , dd = SumarFracciones(n1,d1,n2,d2)
             EscribirFraccion(nn,dd)
 
+<<<<<<< Updated upstream
         #print(SumarFracciones(13,20,3,4)) #Resultado antes de simplificar 112/80 después 7/5
+=======
+    #print(SumarFracciones(13,20,3,4)) #Resultado antes de simplificar 112/80 después 7/5
+>>>>>>> Stashed changes
 
         if eleccion == 2:
             print("Fracción 1 de la restar")
@@ -226,4 +240,8 @@ while True:
             print("Hasta la próxima")
             exit(1)
         else:
+<<<<<<< Updated upstream
             print("El valor intrudido no es correcto. Responda Si o No")
+=======
+            print("El valor intrudido no es correcto. Responda Si o No")
+>>>>>>> Stashed changes
