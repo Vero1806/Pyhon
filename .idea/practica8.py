@@ -35,8 +35,11 @@
 
 #import Numpy
     # Permite trabajar con matrices y matrices multidimensionales
-        #
-#https://pythondiario.com/2019/05/numpy-en-python.html
+        #numpy.array: Convierte una lista o tupla en un array.
+        #numpy.zeros y numpy.ones: Crea arrays de ceros y unos, respectivamente.
+        #numpy.arange: Crea un array con valores espaciados uniformemente.
+        #numpy.linspace: Crea un array con valores espaciados linealmente.
+
 
 
 
@@ -169,4 +172,46 @@ while True:
 # entonces debe buscar todos los archivos con esa extensión haya en un directorio específico utilizando el módulo os y
 # calcular el tamaño total ocupado por esos archivos. Si terminamos, añadir funcionalidad
 # a este programa para calcular espacios en el disco, explorando las diferentes opciones del módulo OS.
+
+import os
+
+def calcularTamanoArchivos(extension, directorio):
+    # Obtener la lista de archivos en el directorio
+    archivos = [archivo for archivo in os.listdir(directorio) if archivo.endswith(extension)] #endswith compruega la extension del archivo en el directorio
+
+    if not archivos:
+        print("No hay archivos con la extensión", extension, "en el directorio", directorio,".")
+        return
+
+    # Calcular el tamaño total de los archivos
+    tamano_total = sum(os.path.getsize(os.path.join(directorio, archivo)) for archivo in archivos)
+
+    print("Tamaño total de archivos con extensión", extension, tamano_total, "bytes.")
+
+def calcularEspacioDisco(directorio):
+    # Obtener información sobre el espacio en disco
+    espacio = os.stat(directorio)
+
+    # Comprueba que es Window. 'nt' se usa en python para designar Window
+    if os.name == 'nt': #Window
+        espacio_libre = os.path.getsize(directorio)
+    else: #Linux
+        espacio_libre = espacio.st_blksize * espacio.st_blocks
+
+    print("Espacio libre en el disco para el directorio", directorio, espacio_libre, "bytes.")
+
+
+
+if __name__ == "__main__": #Esto es la llamada al main. Ya que python no tiene main como función
+
+    # Solicitar al usuario la extensión de archivo y el directorio
+    extension = input("Ingrese la extensión de archivo (por ejemplo, '.txt', '.pdf', '.jpg'): ")
+    directorio = input("Ingrese el directorio a explorar (presione Enter para usar el directorio actual): ")
+
+    if not directorio:
+        directorio = "." #Te manda al directorio actual en caso de dar a enter
+
+    calcularTamanoArchivos(extension, directorio)
+    calcularEspacioDisco(directorio)
+
 
