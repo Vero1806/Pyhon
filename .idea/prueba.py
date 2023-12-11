@@ -1,49 +1,46 @@
+#4) Crear un programa que pida al usuario los apellidos de un alumno y
+# devuelva todas sus notas ordenadas de mayor a menor y la calificación media
 import csv
 
+def obtenerNotasYMedia(apellido, archivoCsv):
+    # Inicializar listas para almacenar las notas del alumno
+    notas = []
 
-# Crear un diccionario para almacenar las notas de cada alumno
-notasAlumno = {}
+    with open(archivoCsv,mode="r",encoding='utf-8') as archivo:
+        lectorCsv = csv.DictReader(archivo, delimiter=';')
 
-# Abrir el archivo CSV con los datos de los estudiantes
-with open("datos.csv", mode="r", encoding="utf-8") as datosAbierto:
-    lector_csv = csv.DictReader(datosAbierto, delimiter=";")
 
-    # Recorrer cada fila del archivo CSV
-    for fila in lector_csv:
-        # Obtener los detalles del estudiante
-        nombre = fila["Nombre"]
-        apellidos = fila["Apellidos"]
-        nota = float(fila["Nota"])
+        for fila in lectorCsv:
+            if fila['Apellidos'].lower() == apellido.lower():
+                nota = (fila['Nota'])
+                notaFload = float(nota)
+                notas.append(nota)
 
-        # Calcular la nota media del estudiante
-        if (nombre, apellidos) not in notasAlumno:
-            notasAlumno[(nombre, apellidos)] = {"notas": [], "notaMedia": 0.0}
+        print(notas)
 
-        notasAlumno[(nombre, apellidos)]["notas"].append(nota)
+    if not notas:
+        return None, None  # No se encontró al alumno
 
-# Calcular la nota media de cada estudiante
-for estudiante, info in notasAlumno.items():
-    notas = info["notas"]
-    notaMedia = sum(notas) / len(notas)
-    info["notaMedia"] = round(notaMedia, 2)
+    # Calcular la calificación media
+    media = sum(notas) / len(notas)
 
-# Crear un nuevo archivo CSV con la nota media de cada estudiante
-with open("notaMediaEstudiantes.csv", mode="w", encoding="utf-8", newline="") as notasMediasArchivo:
-    campos = ["Nombre", "Apellidos", "NotaMedia"]
-    escritor_csv = csv.DictWriter(notasMediasArchivo, fieldnames=campos, delimiter=";")
+    # Ordenar las notas de mayor a menor
+    notasOrdenadas = sorted(notas, reverse=True)
 
-    # Escribir el encabezado
-    escritor_csv.writeheader()
+    return notasOrdenadas, media
 
-    # Escribir la nota media de cada estudiante
-    for estudiante, info in notasAlumno.items():
-        nombre, apellidos = estudiante
-        notaMedia = info["notaMedia"]
-        escritor_csv.writerow({"Nombre": nombre, "Apellidos": apellidos, "NotaMedia": notaMedia})
+# Solicitar al usuario el apellido del alumno
+apellidoUsuario = input("Ingrese el apellido del alumno: ")
 
-with open("notaMediaEstudiantes.csv", mode="r", encoding="utf-8") as notasMediasArchivo:
-    leer = csv.DictReader(notasMediasArchivo, delimiter=';')
-    for fila in leer:
-        print(fila)
+# Especificar el nombre del archivo CSV
+archivoCsv = 'datos.csv'  # Reemplazar con el nombre real de tu archivo
 
-print("Nota media de cada estudiante guardada en 'notaMediaEstudiantes.csv'.")
+# Obtener las notas y la calificación media
+notasAlumno, mediaAlumno = obtenerNotasYMedia(apellidoUsuario, archivoCsv)
+
+# Mostrar los resultados
+if notasAlumno is not None:
+    print(f"Notas del alumno {apellidoUsuario}: {notasAlumno}")
+    print(f"Calificación media: {mediaAlumno}")
+else:
+    print(f"No se encontró al alumno con el apellido {apellidoUsuario}.")
