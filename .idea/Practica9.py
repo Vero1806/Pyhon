@@ -151,12 +151,96 @@ with open("notaMediaEstudiantes.csv", mode="r", encoding="utf-8") as notasMedias
         print(fila)
 
 print("Nota media de cada estudiante guardada en 'notaMediaEstudiantes.csv'.")
-'''
-4) Crear un programa que pida al usuario los apellidos de un alumno y devuelva todas sus notas ordenadas de mayor a menor y la calificación media
-'''
 
+#4) Crear un programa que pida al usuario los apellidos de un alumno y
+# devuelva todas sus notas ordenadas de mayor a menor y la calificación media
+import csv
 
+def obtenerNotasYMedia(apellido):
+    # Inicializar lista para almacenar las notas del alumno
+    notas = []
+
+    with open('datos.csv', mode="r", encoding='utf-8') as archivo:
+        lectorCsv = csv.DictReader(archivo, delimiter=';')
+
+        for fila in lectorCsv:
+            if fila['Apellidos'].lower() == apellido.lower():
+                nota = float(fila['Nota'])
+                notas.append(nota)
+
+    if not notas:
+        return None  # No se encontró al alumno
+
+    # Calcular la calificación media
+    media = sum(notas) / len(notas)
+
+    # Ordenar las notas de mayor a menor
+    notasOrdenadas = sorted(notas, reverse=True) #notasOrdenadas = sorted(notas)[::-1]
+
+    return notasOrdenadas, media
+
+# Solicitar al usuario el apellido del alumno
+apellidoUsuario = input("Ingrese el apellido del alumno: ")
+
+# Obtener las notas y la calificación media
+notasAlumno, mediaAlumno = obtenerNotasYMedia(apellidoUsuario)
+
+# Mostrar los resultados
+if notasAlumno is not None:
+    print(f"Notas del alumno {apellidoUsuario}: {notasAlumno}")
+    print(f"Calificación media: {mediaAlumno}")
+else:
+    print(f"No se encontró al alumno con el apellido {apellidoUsuario}.")
 
 '''
 5) Crear una interfaz gráfica para el apartado 4)
 '''
+
+
+
+def obtenerNotasYMedia(apellido):
+    # Inicializar lista para almacenar las notas del alumno
+    notas = []
+
+    with open('datos.csv', mode="r", encoding='utf-8') as archivo:
+        lectorCsv = csv.DictReader(archivo, delimiter=';')
+
+        for fila in lectorCsv:
+            if fila['Apellidos'].lower() == apellido.lower():
+                nota = float(fila['Nota'])
+                notas.append(nota)
+
+    if not notas:
+        return None  # No se encontró al alumno
+
+    # Calcular la calificación media
+    media = sum(notas) / len(notas)
+
+    # Ordenar las notas de mayor a menor
+    notasOrdenadas = sorted(notas, reverse=True) #notasOrdenadas = sorted(notas)[::-1]
+
+    return notasOrdenadas, media
+
+def mostrar_resultados():
+    apellidoUsuario = entrada_apellido.get()
+    notasAlumno, mediaAlumno = obtenerNotasYMedia(apellidoUsuario)
+
+    if notasAlumno is not None:
+        resultados = f"Notas del alumno {apellidoUsuario}: {notasAlumno}\nCalificación media: {mediaAlumno}"
+        labelResultado.config(text=f"Resultados {resultados}") #la modificación con respecto al 4 es .config
+    else:
+        labelResultado.config(text=f"Error. No se encontró al alumno con el apellido {apellidoUsuario}.")
+
+# Crear la interfaz gráfica
+ventana = tk.Tk()
+ventana.title("Consulta de Notas")
+
+# Crear elementos de la interfaz
+etiqueta_apellido = tk.Label(ventana, text="Ingrese el apellido del alumno:")
+etiqueta_apellido.pack()
+labelResultado = tk.Label(ventana, text="")
+
+entrada_apellido = tk.Entry(ventana)
+entrada_apellido.pack()
+
+boton_consultar = tk.Button(ventana, text="Consultar", command=mostrar_resultados)
