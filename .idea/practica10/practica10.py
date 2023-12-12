@@ -19,6 +19,8 @@ class Autor:
     def paisAutor(self,paisAutorNuevo):
         self.__paisAutor=paisAutorNuevo
 
+        ###
+
     def mostrarAutor(self):
         return print(self.__nombreAutor,self.__paisAutor)
 
