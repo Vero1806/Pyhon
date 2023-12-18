@@ -7,11 +7,14 @@
 class DNI ():
     def __init__(self, numero):
         self.__numero = numero
+        self.__letra = self.calcularLetra()
 
+    def calcularLetra(self):
         letrasDNI = "TRWAGMYFPDXBNJZSQVHLCKE"
-        indiceLetra = self.__numero % 23
+        indiceLetra = int(self.__numero) % 23
         letra = letrasDNI[indiceLetra]
-        self.__letra = letra
+        return letra
+
 
     @property
     def numero (self):
@@ -22,9 +25,16 @@ class DNI ():
         self.__numero = numero
 
     @property
-    def DNIcompleto(self):
-        return self.__numero+self.__letra
+    def letra (self):
+        return self.__letra
 
+    @numero.setter
+    def letra (self, letra):
+        self.__letra = letra
+
+    @property
+    def dniCompleto (self):
+        return str(self.__numero + self.__letra)
 
 # A continuación creamos la clase Persona. Una persona tendrá un DNI, un nombre y
 # una edad.
@@ -33,7 +43,7 @@ class DNI ():
 
 class Persona (DNI):
     def __init__(self, dni, nombre, edad):
-        super().__init__(dni.DNIcompleto)
+        super().__init__(dni)
         self.__nombre = nombre
         self.__edad = edad
 
@@ -81,14 +91,14 @@ class Notas ():
 # La clase Alumno se hereda de las clases anteriores: Persona y Notas.
 class Alumno(Persona, Notas):
     def __init__(self, dni, nombre, edad):
-        super().__init__(dni, nombre, edad)
+        super(Persona).__init__(self, dni, nombre, edad)
+        super(Notas).__init__(self)
 
 
 
 # Ejemplo de uso
-numero_dni = 12345678
-dni_alumno = DNI(numero_dni)
-alumno = Alumno(dni_alumno, "Juan Perez", 20)
+dniAlumno = DNI("12345678")
+alumno = Alumno(dniAlumno, "Juan Perez", 20)
 
 # Agregar notas
 alumno.add_notas("Matematicas", 8.5)
