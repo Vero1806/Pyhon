@@ -3,7 +3,11 @@
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$" />
+<<<<<<< HEAD
     <orderEntry type="jdk" jdkName="Python 3.12" jdkType="Python SDK" />
+=======
+    <orderEntry type="jdk" jdkName="Python 3.12 (untitled)" jdkType="Python SDK" />
+>>>>>>> 85db7227ae22521c8cd91c6eed9db050caf4ed07
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
