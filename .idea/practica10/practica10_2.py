@@ -7,11 +7,7 @@
 class DNI ():
     def __init__(self, numero):
         self.__numero = numero
-
-        letrasDNI = "TRWAGMYFPDXBNJZSQVHLCKE"
-        indiceLetra = self.__numero % 23
-        letra = letrasDNI[indiceLetra]
-        self.__letra = letra
+        self.__letra = self.calcularLetra()
 
     @property
     def numero (self):
@@ -22,8 +18,22 @@ class DNI ():
         self.__numero = numero
 
     @property
-    def DNIcompleto(self):
-        return self.__numero+self.__letra
+    def letra (self):
+        return self.__letra
+
+    @letra.setter
+    def letra (self, letra):
+        self.__letra = letra
+
+    def calcularLetra(self):
+        letrasDNI = "TRWAGMYFPDXBNJZSQVHLCKE"
+        indiceLetra = int(self.__numero) % 23
+        letra = letrasDNI[indiceLetra]
+        return letra
+
+
+    # def dniCompleto(self):
+    #     return str(self.numero)+str(self.letra)
 
 
 # A continuación creamos la clase Persona. Una persona tendrá un DNI, un nombre y
@@ -31,12 +41,19 @@ class DNI ():
 #  Creamos el constructor.
 #  Crearemos también los métodos seters y getters.
 
-class Persona (DNI):
+class Persona ():
     def __init__(self, dni, nombre, edad):
-        super().__init__(dni.DNIcompleto)
+        self.__dni = dni
         self.__nombre = nombre
         self.__edad = edad
 
+    @property
+    def dni(self):
+        return self.__dni
+
+    @dni.setter
+    def dni(self, dni):
+        self.__dni = dni
     @property
     def nombre(self):
         return self.__nombre
@@ -62,7 +79,7 @@ class Persona (DNI):
 
 class Notas ():
     def __init__(self):
-        self__notas = {}
+        self.__notas = {}
 
     def addNotas (self, asignatura, notas):
         self.__notas[asignatura] = notas
@@ -75,31 +92,32 @@ class Notas ():
         if asignatura in self.__notas:
             del self.__notas[asignatura]
 
-    def calcular_media(self):
-        return sum(self.__notas.values()) / len(self.__notas)
+    def calcularMedia(self):
+        return round(sum(self.__notas.values()) / len(self.__notas),2)
 
 # La clase Alumno se hereda de las clases anteriores: Persona y Notas.
 class Alumno(Persona, Notas):
     def __init__(self, dni, nombre, edad):
-        super().__init__(dni, nombre, edad)
-
+        Persona.__init__(self, dni, nombre, edad)
+        Notas.__init__(self)
 
 
 # Ejemplo de uso
-numero_dni = 12345678
-dni_alumno = DNI(numero_dni)
-alumno = Alumno(dni_alumno, "Juan Perez", 20)
+dniAlumno = DNI("12345678")
+alumno = Alumno(dniAlumno, "Juan Perez", 20)
 
 # Agregar notas
-alumno.add_notas("Matematicas", 8.5)
-alumno.add_notas("Historia", 7.0)
-alumno.add_notas("Ciencias", 9.2)
+alumno.addNotas("Matematicas", 8.5)
+alumno.addNotas("Historia", 7.0)
+alumno.addNotas("Ciencias", 9.2)
+alumno.addNotas("Ingles", 6.0)
 
 # Modificar nota
-alumno.mod_notas("Historia", 8.0)
+alumno.modNotas("Historia", 8.0)
+alumno.delNotas("Matematicas")
 
 # Mostrar información del alumno
 print(f"Nombre: {alumno.nombre}")
-print(f"DNI: {alumno.dni_completo}")
+print(f"DNI: {alumno.dni.numero}-{alumno.dni.letra}")
 print(f"Edad: {alumno.edad}")
-print(f"Notas: {alumno.calcular_media()}")
+print(f"Notas Media: {alumno.calcularMedia()}")
